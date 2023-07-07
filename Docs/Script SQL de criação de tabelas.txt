@@ -1,0 +1,68 @@
+-- 1 Criação da tabela "Usuario"
+CREATE TABLE Usuario (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Celular VARCHAR(20) NOT NULL,
+    DataNascimento DATE NOT NULL
+);
+
+-- 2 Criação da tabela "ContaBancaria"
+CREATE TABLE ContaBancaria (
+    ID INT PRIMARY KEY,
+    UsuarioID INT NOT NULL,
+    Banco VARCHAR(50) NOT NULL,
+    Agencia VARCHAR(20) NOT NULL,
+    NumeroConta VARCHAR(20) NOT NULL,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
+);
+
+-- 3 Criação da tabela "Transacao"
+CREATE TABLE Transacao(
+    ID INT PRIMARY KEY,
+    InvestimentoID INT NOT NULL,
+    CategoriaID INT NOT NULL,
+    Valor DECIMAL(10,2) NOT NULL,
+    DataMovimentacao DATE NOT NULL,
+    FOREIGN KEY (InvestimentoID) REFERENCES Investimento(ID),
+    FOREIGN KEY (CategoriaID) REFERENCES Categoria(ID)
+);
+
+-- Criação da tabela "Categoria"
+CREATE TABLE Categoria (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    Descricao VARCHAR(255),
+    IDTransacao INT NOT NULL,
+    FOREIGN KEY (IDTransacao) REFERENCES Transacao(ID)
+);
+
+-- 5 Criação da tabela "Meta"
+CREATE TABLE Meta (
+    ID INT PRIMARY KEY,
+    InvestimentoID INT NOT NULL,
+    Nome VARCHAR(50) NOT NULL,
+    Valor DECIMAL(10,2) NOT NULL,
+    DataLimite DATE NOT NULL,
+    FOREIGN KEY (InvestimentoID) REFERENCES Investimento(ID)
+);
+
+-- 6 Criação da tabela "Investimento"
+CREATE TABLE Investimento (
+    ID INT PRIMARY KEY,
+    UsuarioID INT NOT NULL,
+    Nome VARCHAR(50) NOT NULL,
+    ValorInicial DECIMAL(10,2) NOT NULL,
+    ValorAtual DECIMAL(10,2),
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
+);
+
+
+-- 7 Criação da tabela "ImpostoDeRenda"
+CREATE TABLE ImpostoDeRenda (
+    ID INT PRIMARY KEY,
+    UsuarioID INT NOT NULL,
+    Ano INT NOT NULL,
+    ValorDevido DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID)
+);

@@ -1,2 +1,2 @@
-# Dekafy
-Derek Pascuinelli - RM 98042
+# fintech-dekafy
+ fintech-dekafy
